@@ -4,10 +4,10 @@ type
     AsepriteFileFrame* = object
         bytes: DWORD
         magic_number: WORD
-        old_field: WORD
+        old_field*: WORD
         frame_duration: WORD
         #jump 2 bytes
-        new_field: DWORD
+        new_field*: DWORD
 
 proc read*(stream: var AsepriteStream): AsepriteFileFrame = 
     var frame = AsepriteFileFrame()

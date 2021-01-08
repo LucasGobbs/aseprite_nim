@@ -4,7 +4,7 @@ type
     AsepriteFileHeader* = object
         file_size: DWORD 
         magic_number: WORD 
-        frames: WORD
+        frames*: WORD
         width: WORD
         height: WORD
         color_depth: WORD 

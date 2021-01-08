@@ -1,9 +1,23 @@
 import "stream"
 import "utils"
 type
+    ChunkType* = enum
+        OldPallete = 0x004,
+        OldPallete2 = 0x0011,
+        Layer = 0x2004,
+        Cel = 0x2005,
+        CelExtra = 0x2006,
+        ColorProfille = 0x2007,
+        Mask = 0x2016,
+        Path = 0x2017,
+        Tags = 0x2018,
+        Pallete = 0x2019,
+        UserData = 0x2020,
+        Slice = 0x2022
+    
     AsepriteFileChunk* = object
         size: DWORD
-        chunk_type: WORD
+        chunk_type: ChunkType
         data: seq[BYTE]
 
 
@@ -12,34 +26,32 @@ proc read*(stream: var AsepriteStream): AsepriteFileChunk =
     stream.read_dword(chunk.size.addr)
     stream.read_word(chunk.chunk_type.addr)
 
-    echo chunk
-
     case chunk.chunk_type:
-        of 0x0004:
+        of OldPallete:
             echo 'a'
-        of 0x0011:
+        of OldPallete2:
             echo 'b'
-        of 0x2004:
+        of Layer:
             echo 'c'
-        of 0x2005:
+        of Cel:
             echo 'd'
-        of 0x2006:
+        of CelExtra:
             echo 'e'
-        of 0x2007:
+        of ColorProfille:
             echo 'f'
-        of 0x2016:
+        of Mask:
             echo 'g'
-        of 0x2017:
+        of Path:
             echo 'h'
-        of 0x2018:
+        of Tags:
             echo 'i'
-        of 0x2019:
+        of Pallete:
             echo 'j'
-        of 0x2020:
+        of UserData:
             echo 'k'
-        of 0x2022:
+        of Slice:
             echo 'l'
         else: 
-            echo 'm'
+            echo "Error"
 
     return chunk
